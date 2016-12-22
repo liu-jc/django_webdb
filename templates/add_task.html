@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block main %}
+<style>
+   body {
+        padding-top: 100px;
+   }
+</style>
+<form class="form-horizontal" role="form" action="/add_task/" method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="task_name" class="col-sm-2 control-label">task_name</label>
+    <div class="col-sm-10">
+      <input type="text" name="task_name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="deadline" class="col-sm-2 control-label">deadline</label>
+    <div class="col-sm-10">
+      <input type="text" name="deadline">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="task_detail">task_detail</label>
+    <textarea class="form-control" rows="3" name="task_detail"></textarea>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">添加</button>
+    </div>
+  </div>
+</form>
+<!--
+	<form action="/add_people/" method="post">
+		{% csrf_token %}
+		<input type="text" name="q">
+		<input type="submit" value="Submit">
+	</form>
+-->
+<p>{{ info }} </p>
+{% endblock %}

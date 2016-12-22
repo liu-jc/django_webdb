@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block search%}
+          <form class="navbar-form navbar-right" role="form" action="/team/" method="get">
+            <div class="form-group">
+              <input type="hidden" value="0" name="all">
+              <input type="text" placeholder="Team Name" class="form-control" name = "team_name">
+            </div>
+            <button type="submit" class="btn btn-success">查询团队</button>
+          </form>
+{% endblock %}
+{% block main %}
+    <style>
+        body {
+          padding-top: 100px;
+        }
+    </style>
+     <div class="container">
+      <a href="/add_team"> <button type="button" class="btn btn-lg btn-default">添加团队</button></a>
+      <a href="/team"> <button type="button" class="btn btn-lg btn-default">所有团队</button></a>
+    <div class="col-md-10">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>team id</th>
+                <th>team Name</th>
+                <th>leader id</th>
+                <th>leader name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for team in team_list %}
+                <tr>
+                  {% for item in team %}
+                    {% if forloop.last %}
+                      <td> 
+                        <a href="/team_member/?team_id={{ item }}"> <button type="button" >团队详情</button></a> 
+                      </td>
+                    {% else %}
+                      <td> {{ item }} </td>
+                    {% endif %}
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+       </div>
+     </div>
+{% endblock %}

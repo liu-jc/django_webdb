@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block search%}
+          <form class="navbar-form navbar-right" role="form" action="/task/" method="get">
+            <div class="form-group">
+              <input type="text" placeholder="Task Name" class="form-control" name = "task_name">
+            </div>
+            <button type="submit" class="btn btn-success">查询任务</button>
+          </form>
+          <form class="navbar-form navbar-right" role="form" action="/task/" method="get">
+            <div class="form-group">
+            <input type="text" placeholder="Person Name" class="form-control" name = "person_name">
+            </div>
+            <button type="submit" class="btn btn-success">查询人名</button>
+          </form>
+{% endblock %}
+{% block main %}
+    <style>
+        body {
+          padding-top: 100px;
+        }
+    </style>
+     <div class="container">
+      <a href="/add_task"> <button type="button" class="btn btn-lg btn-default">添加任务</button></a>
+      <a href="/task"> <button type="button" class="btn btn-lg btn-default">所有任务</button></a>
+    <div class="col-md-10">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>task Id</th>
+                <th>task Name</th>
+                <th>deadline</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for task in task_list %}
+                <tr>
+                  {% for item in task %}
+                    {% if forloop.last %}
+                      <td> 
+                        <a href="/task_detail/?task_id={{ item }}"> <button type="button" >任务详情</button></a> 
+                      </td>
+                    {% else %}
+                      <td> {{ item }} </td>
+                    {% endif %}
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+       </div>
+     </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block search%}
+          <form class="navbar-form navbar-right" role="form" action="/event/" method="get">
+            <div class="form-group">
+              <input type="text" placeholder="Event Name" class="form-control" name = "event_name">
+            </div>
+            <button type="submit" class="btn btn-success">查询事件</button>
+          </form>
+{% endblock %}
+{% block main %}
+    <style>
+        body {
+          padding-top: 100px;
+        }
+    </style>
+     <div class="container">
+      <a href="/add_event"> <button type="button" class="btn btn-lg btn-default">添加事件</button></a>
+      <a href="/event"> <button type="button" class="btn btn-lg btn-default">所有事件</button></a>
+    <div class="col-md-10">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>event Id</th>
+                <th>event Name</th>
+                <th>event Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for event in event_list %}
+                <tr>
+                  {% for item in event %}
+                    {% if forloop.last %}
+                      <td> 
+                        <a href="/event_detail/?event_id={{ item }}"> <button type="button" >事件详情</button></a> 
+                      </td>
+                    {% else %}
+                      <td> {{ item }} </td>
+                    {% endif %}
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+       </div>
+     </div>
+{% endblock %}

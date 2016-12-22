@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block main %}
+    {% if alert %}
+      <script type="text/javascript">
+        function disp_alert()
+        {
+          alert("再次向您问好！在这里，我们向您演示" + '\n' + "如何向警告框添加折行。")
+        }
+      </script>
+      <input type="button" onclick="disp_alert()" value="输入有误请重新输入" />
+    {% endif %}
+    <style>
+        body {
+          padding-top: 100px;
+        }
+    </style>
+    <div class="container">
+            <form class="navbar-form" role="form" action="/team_member/" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <input type="hidden" value="{{ team_id }}" class="form-control" name = "team_id">
+              <input type="text" placeholder="Person ID" class="form-control" name = "person_id">
+              <input type="text" placeholder="Person Name" class="form-control" name = "person_name">
+            </div>
+            <button type="submit" class="btn btn-success">添加人员</button>
+          </form>
+    <div class="col-md-10">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>member id</th>
+                <th>member name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for member in member_list %}
+                <tr>
+                  {% for item in member %}
+                    {% if forloop.last %}
+                      <td> 
+                        <a href="/people/?all=0&person_id={{ item }}"> <button type="button" >查看成员</button></a> 
+                      </td>
+                    {% else %}
+                      <td> {{ item }} </td>
+                    {% endif %}
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+       </div>
+     </div>
+{% endblock %}

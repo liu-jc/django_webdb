@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block search%}
+          <form class="navbar-form navbar-right" role="form" action="/people/" method="get">
+            <!-- {% csrf_token %} -->
+            <div class="form-group">
+              <input type="hidden" value=0 name="all">
+              <input type="text" placeholder="Person Name" class="form-control" name = "person_name">
+            </div>
+            <button type="submit" class="btn btn-success">查询人员</button>
+          </form>
+{% endblock %}
+{% block main %}
+    <style>
+        body {
+          padding-top: 100px;
+        }
+    </style>
+     <div class="container">
+     	<a href="/add_people"> <button type="button" class="btn btn-lg btn-default">添加人员</button></a>
+      <a href="/people"> <button type="button" class="btn btn-lg btn-default">所有人员</button></a>
+		<div class="col-md-10">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Person Name</th>
+                <th>Birth</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for person in people_list %}
+                <tr>
+                  {% for item in person %}
+                  {% if forloop.last %}
+                    <td> 
+                        <form role="form" action="/people_delete/" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                          <input type="hidden" name = "person_id" value = "{{ item }}" >
+                        </div>
+                          <button type="submit" >删除人员</button>
+                        </form>
+                    </td>
+                  {% else %}
+                    <td> {{ item }} </td>
+                  {% endif %}
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+       </div>
+     </div>
+{% endblock%}

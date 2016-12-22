@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block search%}
+          <form class="navbar-form navbar-right" role="form" action="/project/" method="get">
+            <div class="form-group">
+              <input type="text" placeholder="project Name" class="form-control" name = "project_name">
+            </div>
+            <button type="submit" class="btn btn-success">查询项目</button>
+          </form>
+{% endblock %}
+{% block main %}
+    <style>
+        body {
+          padding-top: 100px;
+        }
+    </style>
+     <div class="container">
+      <a href="/add_project"> <button type="button" class="btn btn-lg btn-default">添加项目</button></a>
+      <a href="/project"> <button type="button" class="btn btn-lg btn-default">所有项目</button></a>
+    <div class="col-md-10">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>project id</th>
+                <th>project Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for team in team_list %}
+                <tr>
+                  {% for item in team %}
+                    {% if forloop.last %}
+                      <td> 
+                        <a href="/project_detail/?project_id={{ item }}"> <button type="button" >项目详情</button></a> 
+                      </td>
+                    {% else %}
+                      <td> {{ item }} </td>
+                    {% endif %}
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+       </div>
+     </div>
+{% endblock %}
